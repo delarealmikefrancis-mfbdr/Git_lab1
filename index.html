@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mike Delas alas — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F7F4;
+    --ink: #14171A;
+    --muted: #6B7178;
+    --line: #E2E1DC;
+    --accent: #2454FF;
+    --accent-soft: #EAF0FF;
+    --gutter-w: 56px;
+    --maxw: 760px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* line-number gutter, decorative, echoes an editor */
+  .gutter{
+    position:fixed;
+    top:0; left:0; bottom:0;
+    width:var(--gutter-w);
+    border-right:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-top:28px;
+    gap:28px;
+    color:var(--muted);
+    font-size:11px;
+    z-index:5;
+    background:var(--bg);
+  }
+  .gutter span{ opacity:.55; }
+
+  @media (max-width:820px){
+    .gutter{ display:none; }
+    :root{ --gutter-w:0px; }
+  }
+
+  .shell{
+    margin-left:var(--gutter-w);
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  header.nav{
+    position:sticky;
+    top:0;
+    background:rgba(247,247,244,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    z-index:10;
+  }
+  header.nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:64px;
+  }
+  .brand{
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:.02em;
+  }
+  .brand .dim{ color:var(--muted); font-weight:400; }
+
+  nav.links{ display:flex; align-items:center; gap:28px; }
+  nav.links a{
+    color:var(--ink);
+    text-decoration:none;
+    font-size:13px;
+    font-family:'JetBrains Mono', monospace;
+    opacity:.7;
+    transition:opacity .15s ease;
+  }
+  nav.links a:hover{ opacity:1; }
+  nav.links a:focus-visible, a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:3px;
+  }
+
+  .status{
+    display:flex; align-items:center; gap:7px;
+    font-size:12px; font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+  }
+  .status .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:#2BAE66;
+    box-shadow:0 0 0 3px rgba(43,174,102,0.16);
+  }
+
+  @media (max-width:600px){
+    nav.links{ display:none; }
+  }
+
+  /* section label styled like a file path — grounded in the subject, not decorative numbering */
+  .path-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:18px;
+  }
+  .path-label::before{
+    content:"";
+    width:14px; height:1px;
+    background:var(--accent);
+    opacity:.5;
+  }
+
+  /* HERO */
+  .hero{
+    padding:120px 0 88px;
+  }
+  .hero h1{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:600;
+    font-size:clamp(30px, 5vw, 44px);
+    line-height:1.28;
+    letter-spacing:-0.01em;
+    max-width:15ch;
+  }
+  .cursor{
+    display:inline-block;
+    width:.5em;
+    background:var(--accent);
+    margin-left:2px;
+    animation:blink 1.05s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero p.sub{
+    margin-top:22px;
+    max-width:52ch;
+    color:var(--muted);
+    font-size:16.5px;
+  }
+
+  .cta-row{
+    margin-top:36px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    padding:11px 18px;
+    border-radius:6px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .12s ease, background .15s ease, border-color .15s ease;
+    border:1px solid transparent;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--bg);
+  }
+  .btn-primary:hover{ background:var(--accent); }
+  .btn-ghost{
+    border-color:var(--line);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  /* WORK */
+  section{ padding:72px 0; border-top:1px solid var(--line); }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:36px;
+  }
+  .section-head h2{
+    font-size:20px;
+    font-weight:600;
+  }
+  .section-head .count{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .project{
+    padding:26px 0;
+    border-top:1px solid var(--line);
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .project:first-of-type{ border-top:none; padding-top:0; }
+
+  .project-top{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .project h3{
+    font-size:17px;
+    font-weight:600;
+  }
+  .project h3 a{ color:inherit; text-decoration:none; }
+  .project h3 a:hover{ color:var(--accent); }
+
+  .project .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+
+  .project p{
+    color:var(--muted);
+    font-size:14.5px;
+    max-width:56ch;
+  }
+
+  .stack{
+    display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;
+  }
+  .stack span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    padding:3px 8px;
+    border-radius:4px;
+    background:var(--accent-soft);
+    color:var(--accent);
+  }
+
+  /* ABOUT */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:48px;
+  }
+  @media (max-width:640px){
+    .about-grid{ grid-template-columns:1fr; }
+  }
+  .about-grid p{ color:var(--muted); font-size:15px; margin-bottom:14px; }
+  .about-grid p:first-child{ color:var(--ink); font-size:16px; }
+
+  .skills h4{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:12px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .skills ul{ list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .skills li{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13.5px;
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px dashed var(--line);
+    padding-bottom:8px;
+  }
+  .skills li span:last-child{ color:var(--muted); }
+
+  /* CONTACT */
+  .contact-box{
+    background:var(--ink);
+    color:var(--bg);
+    border-radius:10px;
+    padding:44px 36px;
+  }
+  .contact-box h2{
+    font-family:'JetBrains Mono', monospace;
+    font-size:24px;
+    max-width:20ch;
+  }
+  .contact-box p{
+    color:#B7BAC0;
+    margin-top:12px;
+    max-width:46ch;
+  }
+  .contact-box .btn-primary{
+    background:var(--bg);
+    color:var(--ink);
+    margin-top:26px;
+  }
+  .contact-box .btn-primary:hover{ background:var(--accent); color:#fff; }
+
+  footer{
+    padding:32px 0 60px;
+  }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  footer a{ color:var(--muted); }
+</style>
+</head>
+<body>
+
+  <div class="gutter mono" aria-hidden="true">
+    <span>01</span><span>02</span><span>03</span><span>04</span><span>05</span>
+    <span>06</span><span>07</span><span>08</span><span>09</span><span>10</span>
+  </div>
+
+  <div class="shell">
+    <header class="nav">
+      <div class="wrap">
+        <div class="brand">Mike Delas alas <span class="dim">/ engineer</span></div>
+        <nav class="links">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="status"><span class="dot"></span>Open to work</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero wrap" style="border:none;">
+        <div class="path-label">~/home</div>
+        <h1>I build backend systems that stay boring in production<span class="cursor" aria-hidden="true">&nbsp;</span></h1>
+        <p class="sub">Software engineer focused on APIs, job infrastructure, and developer tooling. Eight years shipping things that other engineers depend on and rarely have to think about.</p>
+        <div class="cta-row">
+          <a href="#work" class="btn btn-primary">View work</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+      </section>
+
+      <section id="work" class="wrap">
+        <div class="path-label">~/selected-work</div>
+        <div class="section-head">
+          <h2>Selected work</h2>
+          <span class="count">3 of 11 shown</span>
+        </div>
+
+        <div class="project">
+          <div class="project-top">
+            <h3><a href="#">Fenwick</a></h3>
+            <span class="tag">2024 — active</span>
+          </div>
+          <p>A job queue for Go services that treats retries and backoff as first-class config instead of afterthought code. Handles ~40M jobs/day at its largest deployment.</p>
+          <div class="stack"><span>Go</span><span>Redis</span><span>gRPC</span></div>
+        </div>
+
+        <div class="project">
+          <div class="project-top">
+            <h3><a href="#">Waypoint</a></h3>
+            <span class="tag">2023</span>
+          </div>
+          <p>An API gateway with request-level tracing built in, so on-call engineers can trace a failure back to its origin without stitching logs together by hand.</p>
+          <div class="stack"><span>Rust</span><span>OpenTelemetry</span><span>Envoy</span></div>
+        </div>
+
+        <div class="project">
+          <div class="project-top">
+            <h3><a href="#">Loom CLI</a></h3>
+            <span class="tag">2022</span>
+          </div>
+          <p>A command-line tool for scaffolding internal services from a team's own templates instead of generic boilerplate. Adopted by three teams before I open-sourced it.</p>
+          <div class="stack"><span>TypeScript</span><span>Node</span></div>
+        </div>
+      </section>
+
+      <section id="about" class="wrap">
+        <div class="path-label">~/about</div>
+        <div class="about-grid">
+          <div>
+            <p>I've spent most of my career on infrastructure teams — the parts of a codebase that don't demo well but decide whether everything else works at 3am.</p>
+            <p>Before that I was a backend engineer at a payments company, and before that I was a self-taught developer who broke a lot of staging environments to learn how they worked.</p>
+            <p>I like systems with clear failure modes, documentation that's actually maintained, and code reviews that teach something.</p>
+          </div>
+          <div class="skills">
+            <h4>Currently reaching for</h4>
+            <ul>
+              <li><span>Languages</span><span>Go, Rust, TypeScript</span></li>
+              <li><span>Infra</span><span>Kubernetes, Terraform</span></li>
+              <li><span>Data</span><span>Postgres, Redis, Kafka</span></li>
+              <li><span>Observability</span><span>OpenTelemetry, Grafana</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="wrap">
+        <div class="path-label">~/contact</div>
+        <div class="contact-box">
+          <h2>Have something worth building? I'd like to hear about it.</h2>
+          <p>Best for infrastructure-heavy roles or contract work — API design, backend systems, developer tooling. Reply time is usually under a day.</p>
+          <a href="mailto:hello@jordanward.dev" class="btn btn-primary">hello@mikedelasalas.dev</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <span>© 2026 Mike Delas alas</span>
+      <span><a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">Resume</a></span>
+    </footer>
+  </div>
+
+</body>
+</html>
+</body>
+</html>
